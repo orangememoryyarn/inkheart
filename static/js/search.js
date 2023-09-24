@@ -33,20 +33,9 @@ function get_latest_rss()
   //take the most popular rss stuff for each
 }
 
-const reader = new FileReader();
 
 function fetchAndPrint() {
-  alert('here');
 
-  const fs = require('fs')
-
-  fs.readFile('stuff.txt', (err, data) => {
-      if (err) throw err;
-
-      alert(data.toString());
-  })
-
-  alert('here too');
 }
 
 
