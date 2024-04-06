@@ -268,8 +268,14 @@ function remove_stop_words(arr) {
   return arr;
 }
 
-function lemmatize(arr) {
-  return arr;
+function autolemma(word) {
+  try {
+    var lemmatizer = new Lemmatizer();
+    alert(lemmatizer.lemmas(word));
+  } catch (error) {
+    return error;
+  }
+  return word;
 }
 
 search_box.addEventListener("keyup", function () {
@@ -278,13 +284,14 @@ search_box.addEventListener("keyup", function () {
     clear_results();
     //the process of getting search results
     let query = search_box.value;
+    let saved_query = query;
     query = tokenize(query);
     query = remove_stop_words(query);
-    query = lemmatize(query);
+    //create_search_result_element(autofill(saved_query));
 
     //looping to append the results to output list
     for (let i = 0; i < query.length; i++) {
-      create_search_result_element(query[i]);
+      create_search_result_element(autolemma(query[i]));
     }
   } else {
   }
