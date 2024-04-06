@@ -1,0 +1,76 @@
+
+ul {
+    list-style-type: none;
+}
+
+#search_box {
+    margin-top: 10px;
+    height: 40px;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    padding: 4px 8px;
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+#search_button {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    height: 40px;
+    background-color: white;
+    background-image: url("../../images/magnifying-glass.png");
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: bottom 50% left 55%;
+    border: 2px solid black;
+    padding: 4px 8px;
+    width: 40px;
+    margin-left: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+#back_button {
+    position: inherit;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    height: 40px;
+    background-color: white;
+    background-image: url("../../images/arrow.png");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: bottom 50% right 55%;
+    border: 2px solid black;
+    padding: 4px 8px;
+    width: 40px;
+    margin-right: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+#back_button:hover {
+    box-shadow: 0 4px 8px var(--p);
+    cursor: pointer;
+}
+#search_button:hover {
+    box-shadow: 0 4px 8px var(--s);
+    cursor: pointer;
+}
+.search_bound {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 13px;
+}
+.search_bound input:focus, .search_bound textarea:focus {
+    outline: none;
+}
+#search_box:hover {
+    box-shadow: 0 4px 8px var(--s);
+}
+#cl {
+    margin-left: 0px;
+    padding-left: 0px;
+}
