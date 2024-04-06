@@ -268,13 +268,14 @@ function remove_stop_words(arr) {
   return arr;
 }
 
+function category_of(word) {
+  return category;
+}
+
 function autolemma(word) {
-  alert("at autolemma");
   try {
-    alert("before lemmatization");
     var lemmatizer = new Lemmatizer();
-    alert(lemmatizer.lemmas(word));
-    alert("post-lemmas");
+    word = lemmatizer.lemmas(word, category_of(word));
   } catch (error) {
     alert(error);
     return error;
@@ -292,7 +293,6 @@ search_box.addEventListener("keyup", function () {
     query = tokenize(query);
     query = remove_stop_words(query);
     //create_search_result_element(autofill(saved_query));
-    alert("what is going on?");
     //looping to append the results to output list
     for (let i = 0; i < query.length; i++) {
       create_search_result_element(autolemma(query[i]));
