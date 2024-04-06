@@ -1,67 +1,66 @@
-
 const search_box = document.querySelector("#search_box");
 const search_button = document.querySelector("#search_button");
-const back_button = document.querySelector("#back_button");
+const search_results = document.querySelector("#cl");
 
-const news = document.querySelector("#news");
-
-news.addEventListener('click', () => {
-  hide_all_except(news);
-  setup_news();
+//could I use the search button for a deeper-than-normal search?
+//There might actually be a use for this if I'm looking into adding in date, regex and more complex searches. cmd+enter works for the button too thought
+search_button.addEventListener("click", () => {
+  find_documents(search_box.value);
 });
 
-function hide_all_except(except_me) {
-  const elementsToHide = document.querySelectorAll(".clicker");
-  elementsToHide.forEach(element => {
-    if(element !== except_me) {
-      element.style.display = "none";
+//woahhhh this works
+function find_documents(query) {}
+
+function action(item) {
+  alert(item.normal);
+}
+
+function tokenize(query) {
+  let doc = nlp(query);
+  //doc.contractions().expand();
+  let data = doc.json();
+  arr = [];
+
+  data[0].terms.forEach(function (item) {
+    if (item.normal != "") {
+      arr.push(item.normal);
     }
   });
+
+  return arr;
 }
 
-function setup_news()
-{
-  let content = get_latest_rss();
-  display(content);
+function stem(query) {
+  return query;
 }
 
-function get_latest_rss()
-{
-  fetchAndPrint();
-  //open up the .txt file and get the rss info
-  //actually grab the rss info from the net
-  //take the most popular rss stuff for each
-}
+search_box.addEventListener("keyup", function () {
+  if (search_box.value != "") {
+    //clearing the result showcase
+    clear_results();
 
+    //the process of getting search results
+    let query = search_box.value;
+    query = tokenize(query);
+    query = remove_stop_words(query);
+    //query = stem(query);
+    //let dataset = find_documents(query);
 
-function fetchAndPrint() {
-
-}
-
-
-function display(stuff)
-{
-
-}
-
-
-
-
-search_button.addEventListener('click', () => {
-  do_stuff(search_box.value);
-});
-
-search_box.addEventListener('keyup', function (e) {
-  if (e.key === 'Enter') {
-    do_stuff(search_box.value);
+    //looping to append the results to output list
+    for (let i = 0; i < query.length; i++) {
+      create_search_result_element(query[i]);
+    }
+  } else {
   }
 });
 
-function do_stuff(text_box_content) {
-  alert(text_box_content);
+function create_search_result_element(information) {
+  let box = document.createElement("div");
+  box.classList.add("blocky");
+  box.innerHTML = information;
+  search_results.append(box);
 }
 
-function get_rss()
-{
-
+function clear_results() {
+  search_results.innerHTML = "";
 }
