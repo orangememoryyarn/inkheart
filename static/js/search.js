@@ -269,9 +269,12 @@ function remove_stop_words(arr) {
 }
 
 function autolemma(word) {
+  alert("at autolemma");
   try {
+    alert("before lemmatization");
     var lemmatizer = new Lemmatizer();
     alert(lemmatizer.lemmas(word));
+    alert("post-lemmas");
   } catch (error) {
     return error;
   }
