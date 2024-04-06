@@ -2,6 +2,10 @@ const search_box = document.querySelector("#search_box");
 const search_button = document.querySelector("#search_button");
 const search_results = document.querySelector("#cl");
 
+window.onload = function () {
+  search_box.focus();
+};
+
 //could I use the search button for a deeper-than-normal search?
 //There might actually be a use for this if I'm looking into adding in date, regex and more complex searches. cmd+enter works for the button too thought
 
@@ -264,6 +268,10 @@ function remove_stop_words(arr) {
   return arr;
 }
 
+function lemmatize(arr) {
+  return arr;
+}
+
 search_box.addEventListener("keyup", function () {
   if (search_box.value != "") {
     //clearing the result showcase
@@ -272,6 +280,7 @@ search_box.addEventListener("keyup", function () {
     let query = search_box.value;
     query = tokenize(query);
     query = remove_stop_words(query);
+    query = lemmatize(query);
 
     //looping to append the results to output list
     for (let i = 0; i < query.length; i++) {
