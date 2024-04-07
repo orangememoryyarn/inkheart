@@ -245,41 +245,56 @@ var snowball_stop_words = [
   "long",
 ];
 
+//make this return a dictionary of word:type pairs
 function tokenize(query) {
   let doc = nlp(query);
   //doc.contractions().expand();
   let data = doc.json();
-  arr = [];
+  let map = new Map();
 
   data[0].terms.forEach(function (item) {
     if (item.normal != "") {
-      arr.push(item.normal);
+      map.set(item.normal, item.tags[0]);
     }
   });
 
-  return arr;
+  return map;
 }
 
-function remove_stop_words(arr) {
-  arr = arr.filter(function (val) {
-    return snowball_stop_words.indexOf(val) == -1;
+function remove_stop_words(map) {
+  map.forEach(function (_, key) {
+    if (!(snowball_stop_words.indexOf(key) == -1)) {
+      map.delete(key);
+    }
   });
-
-  return arr;
+  return map;
 }
 
-function category_of(word) {
-  return category;
-}
-
-function autolemma(word) {
+function autolemma(word, type) {
   try {
     var lemmatizer = new Lemmatizer();
-    word = lemmatizer.lemmas(word, category_of(word));
+    type = type.toLowerCase();
+
+    if (
+      type == "noun" ||
+      type == "verb" ||
+      type == "adverb" ||
+      type == "adjective"
+    ) {
+      if (type == "adverb") {
+        type = "adv";
+      }
+      if (type == "adjective") {
+        type = "adj";
+      }
+
+      word = lemmatizer.lemmas(word, type);
+    }
   } catch (error) {
     alert(error);
     return error;
   }
+
   return word;
 }
 
@@ -287,17 +302,15 @@ search_box.addEventListener("keyup", function () {
   if (search_box.value != "") {
     //clearing the result showcase
     clear_results();
+
     //the process of getting search results
-    let query = search_box.value;
-    let saved_query = query;
-    query = tokenize(query);
-    query = remove_stop_words(query);
-    //create_search_result_element(autofill(saved_query));
-    //looping to append the results to output list
-    for (let i = 0; i < query.length; i++) {
-      create_search_result_element(autolemma(query[i]));
-    }
-  } else {
+    let tokenized_map = tokenize(search_box.value);
+    tokenized_map = remove_stop_words(tokenized_map);
+
+    tokenized_map.forEach(function (value, key) {
+      let lemmatized = autolemma(key, value);
+      create_search_result_element(lemmatized);
+    });
   }
 });
 
