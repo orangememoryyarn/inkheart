@@ -290,16 +290,28 @@ function autolemma(word, type) {
       }
 
       word = lemmatizer.lemmas(word, type);
+      return word;
     }
   } catch (error) {
     alert(error);
     return error;
   }
 
-  return word;
+  return [[word]];
 }
 
-search_box.addEventListener("keyup", function () {
+function debounce(func, timeout = 30) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+
+const processchange = debounce(() => box_handler());
+function box_handler() {
   if (search_box.value != "") {
     //clearing the result showcase
     clear_results();
@@ -310,10 +322,11 @@ search_box.addEventListener("keyup", function () {
 
     tokenized_map.forEach(function (value, key) {
       let lemmatized = autolemma(key, value);
-      create_search_result_element(lemmatized);
+      //is the lemmatizer reducing this to t?
+      create_search_result_element(lemmatized[0][0]);
     });
   }
-});
+}
 
 function create_search_result_element(information) {
   let box = document.createElement("div");
