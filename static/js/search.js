@@ -6,6 +6,8 @@ window.onload = function () {
   search_box.focus();
 };
 
+var lemmatizer = new Lemmatizer();
+
 //could I use the search button for a deeper-than-normal search?
 //There might actually be a use for this if I'm looking into adding in date, regex and more complex searches. cmd+enter works for the button too thought
 
@@ -272,7 +274,6 @@ function remove_stop_words(map) {
 
 function autolemma(word, type) {
   try {
-    var lemmatizer = new Lemmatizer();
     type = type.toLowerCase();
 
     if (
