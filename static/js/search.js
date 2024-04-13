@@ -17,20 +17,35 @@ search_button.addEventListener("click", () => {
 });
 */
 
-function file_handler(local_file_source, callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", local_file_source, true); // true for asynchronous
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      var data = JSON.parse(xhr.responseText);
-      callback(data);
-    }
-  };
-  xhr.send();
+function file_handler(key, local_file_source, callback) {
+  let test = load_from_cache(key);
+  if (!test) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", local_file_source, true); // true for asynchronous
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var data = JSON.parse(xhr.responseText);
+        callback(data);
+      }
+    };
+    let data = xhr.send();
+    save_to_cache(data);
+    data;
+  } else {
+    test;
+  }
+}
+
+function load_from_cache(key) {
+  return localStorage.getItem(key);
+}
+
+function save_to_cache(key, data) {
+  localStorage.setItem(key, data);
 }
 
 var snowball_stop_words;
-file_handler("static/js/snowball.json", function (data) {
+file_handler("snowy", "static/js/snowball.json", function (data) {
   snowball_stop_words = new Set(data);
 });
 
