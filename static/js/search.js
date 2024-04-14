@@ -56,12 +56,17 @@ function tokenize(query) {
   let data = doc.json();
   let map = new Map();
 
-  data[0].terms.forEach(function (item) {
-    if (item.normal != "") {
-      map.set(item.normal, item.tags[0]);
-    }
-  });
+  //It's probably possible to improve the search system by acknowledging different input sentences,
+  //but I'm not going there till I have a barebones search system running.
+  //After that, it's into refactor territory
 
+  data.forEach(function (sentence) {
+    sentence.terms.forEach(function (item) {
+      if (item.normal != "") {
+        map.set(item.normal, item.tags[0]);
+      }
+    });
+  });
   return map;
 }
 
