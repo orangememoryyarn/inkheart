@@ -15,9 +15,9 @@ body {
         hsl(153deg 69% 57%) 63%, hsl(133deg 69% 65%) 70%,
         hsl(104deg 74% 67%) 77%, hsl(83deg 80% 62%) 84%, hsl(67deg 83% 56%) 91%,
         hsl(55deg 100% 50%) 100%;
-    --p: hsl(185deg 53% 52%);
-    --s: hsl(153deg 69% 57%);
-    --t: hsl(55deg 100% 50%);
+    --p: hsl(339deg, 100%, 50%);
+    --s: hsl(306deg, 100%, 33%);
+    --t: hsl(0deg, 100%, 0%);
     --white: white;
 }
 
@@ -40,11 +40,11 @@ body {
 .hr-line:after {
     background: linear-gradient(
         to right,
-        var(--p) 0%,
-        var(--p) 33.33%,
-        var(--s) 33.33%,
-        var(--s) 66.66%,
-        var(--t) 66.66%
+        black 0%,
+        black 5%,
+        var(--p) 5%,
+        var(--p) 95%,
+        black 95%
     );
     position: absolute;
     content: "";
