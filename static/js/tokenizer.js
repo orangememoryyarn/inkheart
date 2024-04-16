@@ -82,3 +82,22 @@ try {
 console.log(`map size: ${map.size}`);
 let keys = Array.from(map.keys());
 let values = Array.from(map.values());
+
+let value_set = new Set();
+let tag_set = new Set();
+
+//This tagging system identifies *everything* with a # as the first letter in the token as a tag. That's...not going to work.
+//We need to handle all latex & markdown formatting before we do this, as stuff like \#1 gets split into \ and #1 and the #1 gets picked up
+//So, yeah. I need to solve this.
+
+values.forEach((item) => {
+  item.forEach((tag) => {
+    if (tag[0] == "#") {
+      tag_set.add(tag);
+    }
+    value_set.add(tag);
+  });
+});
+
+tag_set.delete("#");
+console.log(tag_set);
