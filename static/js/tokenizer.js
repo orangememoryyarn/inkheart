@@ -4,14 +4,9 @@ var Tokenizer = require("tokenize-text");
 var tk = new Tokenizer();
 
 const path = require("node:path");
+const { clearScreenDown } = require("node:readline");
 
 const map = new Map();
-var snowball_stop_words;
-
-function snowball_handler() {
-  let data = get_content_from_filename("snowball.json");
-  snowball_stop_words = new Set(JSON.parse(data));
-}
 
 //ported
 function tokenize(query) {
@@ -61,13 +56,12 @@ function build_map(folder, filename) {
   if (path.extname(filename) === ".md") {
     try {
       const data = fs.readFileSync(fullPath, "utf8");
-      console.log(tk_alternative(data));
-      map.set(filename, process_doc(data));
+      let tuple = [];
+      tuple.push(data);
+      tuple.push(process_doc(data));
+      map.set(filename, tuple);
     } catch (err) {
-      console.error(
-        `Error reading Markdown file ${filename} at ${fullPath}:`,
-        err,
-      );
+      console.error(`Error reading Markdown file ${filename} at ${fullPath}:`);
     }
   }
 }
@@ -76,13 +70,41 @@ const folderName = path.resolve(__dirname, "../../../Documents/Obsidian Vault");
 
 if (fs.existsSync(folderName)) {
   let names = fs.readdirSync(folderName);
-  build_map(folderName, names[22]);
+  names.forEach(function (item) {
+    build_map(folderName, item);
+  });
 }
-
 function tk_alternative(document) {
   let tk_m = tk.sections()(document);
   return tk_m;
 }
 
-let a = Array.from(map.keys);
-console.log(a);
+let keys = Array.from(map.keys());
+let values = Array.from(map.values());
+
+function build_index(everything_maps) {
+  let inverted_index = new Map();
+  everything_maps.forEach(function (value, filename) {
+    value[1].forEach(function (token) {
+      if (inverted_index.has(token)) {
+        inverted_index.set(token, inverted_index.get(token).add(filename));
+      } else {
+        inverted_index.set(token, new Set());
+      }
+    });
+  });
+  return inverted_index;
+}
+
+//creating a set of stop words from the snowball json file
+const setpath = (path.resolve(__dirname, "static/js"), "snowball.json");
+let page = fs.readFileSync(setpath, "utf-8");
+let snowball_stops = new Set(JSON.parse(page));
+
+//making the index
+let inverted_index = build_index(map);
+snowball_stops.forEach(function (token) {
+  if (inverted_index.has(token)) {
+    inverted_index.delete(token);
+  }
+});
