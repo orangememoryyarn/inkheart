@@ -1,5 +1,8 @@
 const nlp = require("compromise");
 const fs = require("node:fs");
+var Tokenizer = require("tokenize-text");
+var tk = new Tokenizer();
+
 const path = require("node:path");
 
 const map = new Map();
@@ -53,51 +56,33 @@ function process_doc(document) {
   return words_from_doc;
 }
 
-function get_content_from_filename(folder, filename) {
+function build_map(folder, filename) {
   const fullPath = path.join(folder, filename);
   if (path.extname(filename) === ".md") {
     try {
       const data = fs.readFileSync(fullPath, "utf8");
+      console.log(tk_alternative(data));
       map.set(filename, process_doc(data));
     } catch (err) {
-      console.error(`Error reading Markdown file ${filename} at ${fullPath}:`);
+      console.error(
+        `Error reading Markdown file ${filename} at ${fullPath}:`,
+        err,
+      );
     }
   }
 }
 
 const folderName = path.resolve(__dirname, "../../../Documents/Obsidian Vault");
 
-try {
-  if (fs.existsSync(folderName)) {
-    fs.readdirSync(folderName).forEach((file) => {
-      get_content_from_filename(folderName, file);
-    });
-  } else {
-    console.error("Directory does not exist:", folderName);
-  }
-} catch (err) {
-  console.error("Error accessing directory:", err);
+if (fs.existsSync(folderName)) {
+  let names = fs.readdirSync(folderName);
+  build_map(folderName, names[22]);
 }
 
-console.log(`map size: ${map.size}`);
-let keys = Array.from(map.keys());
-let values = Array.from(map.values());
+function tk_alternative(document) {
+  let tk_m = tk.sections()(document);
+  return tk_m;
+}
 
-let value_set = new Set();
-let tag_set = new Set();
-
-//This tagging system identifies *everything* with a # as the first letter in the token as a tag. That's...not going to work.
-//We need to handle all latex & markdown formatting before we do this, as stuff like \#1 gets split into \ and #1 and the #1 gets picked up
-//So, yeah. I need to solve this.
-
-values.forEach((item) => {
-  item.forEach((tag) => {
-    if (tag[0] == "#") {
-      tag_set.add(tag);
-    }
-    value_set.add(tag);
-  });
-});
-
-tag_set.delete("#");
-console.log(tag_set);
+let a = Array.from(map.keys);
+console.log(a);
