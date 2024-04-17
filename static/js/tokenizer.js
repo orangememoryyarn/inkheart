@@ -1,91 +1,66 @@
+//npm imports
 const nlp = require("compromise");
 const fs = require("node:fs");
+const path = require("node:path");
+
+//defining tokenizer
 var Tokenizer = require("tokenize-text");
 var tk = new Tokenizer();
 
-const path = require("node:path");
-const { clearScreenDown } = require("node:readline");
+/*
+tokenize(raw_document_text)
+This function returns a SET of the tokens present in the STRING document it is passed.
+If there is an error, it will print the error message to console and return an empty SET
+*/
 
-const map = new Map();
-
-//ported
-function tokenize(query) {
-  let doc = nlp(query);
-  //doc.contractions().expand();
-  let data = doc.json();
-  let map = new Map();
-
-  //It's probably possible to improve the search system by acknowledging different input sentences,
-  //but I'm not going there till I have a barebones search system running.
-  //After that, it's into refactor territory
-
-  data.forEach(function (sentence) {
-    sentence.terms.forEach(function (item) {
-      if (item.normal != "") {
-        map.set(item.normal, item.tags[0]);
-      }
+function tokenize(raw_document) {
+  try {
+    let array_of_tokens = tk.sections()(raw_document);
+    console.log(array_of_tokens);
+    let set_of_tokens = new Set();
+    array_of_tokens.forEach(function (token) {
+      set_of_tokens.add(token);
     });
-  });
-  return map;
-}
-
-function remove_stop_words(map) {
-  map.forEach(function (_, key) {
-    if (snowball_stop_words.has(key)) {
-      map.delete(key);
-    }
-  });
-  return map;
-}
-
-function process_doc(document) {
-  let words_from_doc = [];
-  if (document != "") {
-    let tokenized_map = tokenize(document);
-    //tokenized_map = remove_stop_words(tokenized_map);
-    tokenized_map.forEach(function (value, key) {
-      //let lemmatized = autolemma(key, value);
-      words_from_doc.push(key);
-    });
+    return set_of_tokens;
+  } catch (err) {
+    console.error(`Error tokenizing Markdown file`, err);
   }
-  return words_from_doc;
 }
 
-function build_map(folder, filename) {
-  const fullPath = path.join(folder, filename);
-  if (path.extname(filename) === ".md") {
+/*
+get_token_set_from_one_document(path_to_document, document_name)
+This function accepts the STRING path to a document relative to the directory, and the STRING document name
+If the document does not exist, it will return an empty SET.
+If the document is not a markdown document, it will return an empty SET.
+If the document exists and is a markdown document, it will return the SET of the tokens.
+*/
+function get_token_set_from_one_document(path_to_document, document_name) {
+  if (path.extname(document_name) === ".md") {
+    //get raw markdown file content as STRING
     try {
-      const data = fs.readFileSync(fullPath, "utf8");
-      let tuple = [];
-      tuple.push(data);
-      tuple.push(process_doc(data));
-      map.set(filename, tuple);
+      let file_contents = fs.readFileSync(
+        path.join(path_to_document, document_name),
+      );
+
+      //get SET of tokens from file
+      let set_of_tokens = tokenize(file_contents);
+      return set_of_tokens;
     } catch (err) {
-      console.error(`Error reading Markdown file ${filename} at ${fullPath}:`);
+      console.error(
+        `Error reading Markdown file ${document_name} at ${path.join(path_to_document, document_name)}:`,
+      );
     }
+    return new Set();
   }
+  return new Set();
 }
 
-const folderName = path.resolve(__dirname, "../../../Documents/Obsidian Vault");
-
-if (fs.existsSync(folderName)) {
-  let names = fs.readdirSync(folderName);
-  names.forEach(function (item) {
-    build_map(folderName, item);
-  });
-}
-function tk_alternative(document) {
-  let tk_m = tk.sections()(document);
-  return tk_m;
-}
-
-let keys = Array.from(map.keys());
-let values = Array.from(map.values());
-
-function build_index(everything_maps) {
+function construct_index(everything_maps) {
   let inverted_index = new Map();
-  everything_maps.forEach(function (value, filename) {
-    value[1].forEach(function (token) {
+  console.log(typeof everything_maps);
+  console.log(everything_maps);
+  everything_maps.forEach(function (set_of_tokens, fileName) {
+    set_of_tokens.forEach(function (token) {
       if (inverted_index.has(token)) {
         inverted_index.set(token, inverted_index.get(token).add(filename));
       } else {
@@ -96,13 +71,26 @@ function build_index(everything_maps) {
   return inverted_index;
 }
 
+const folderName = path.resolve(__dirname, "../../../Documents/Obsidian Vault");
+
+//building a (document_name, [raw document, set of tags]) map
+let map = new Map();
+if (fs.existsSync(folderName)) {
+  let names = fs.readdirSync(folderName);
+  names.forEach(function (fileName) {
+    map.set(fileName, get_token_set_from_one_document(folderName, fileName));
+  });
+}
+
 //creating a set of stop words from the snowball json file
 const setpath = (path.resolve(__dirname, "static/js"), "snowball.json");
 let page = fs.readFileSync(setpath, "utf-8");
 let snowball_stops = new Set(JSON.parse(page));
 
 //making the index
-let inverted_index = build_index(map);
+let inverted_index = construct_index(map);
+
+//removing stop words
 snowball_stops.forEach(function (token) {
   if (inverted_index.has(token)) {
     inverted_index.delete(token);
