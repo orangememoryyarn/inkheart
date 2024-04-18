@@ -5,7 +5,7 @@ const path = require("node:path");
 
 //defining tokenizer
 var Tokenizer = require("tokenize-text");
-var tk = new Tokenizer();
+var tokenize = new Tokenizer();
 
 /*
 tokenize(raw_document_text)
@@ -13,17 +13,16 @@ This function returns a SET of the tokens present in the STRING document it is p
 If there is an error, it will print the error message to console and return an empty SET
 */
 
-function tokenize(raw_document) {
+function tokenizer(raw_document) {
   try {
-    let array_of_tokens = tk.sections()(raw_document);
-    console.log(array_of_tokens);
+    let array_of_tokens = tokenize.words()(raw_document);
     let set_of_tokens = new Set();
     array_of_tokens.forEach(function (token) {
-      set_of_tokens.add(token);
+      set_of_tokens.add(token.value);
     });
     return set_of_tokens;
   } catch (err) {
-    console.error(`Error tokenizing Markdown file`, err);
+    console.error(`Error tokenizing Markdown file`);
   }
 }
 
@@ -40,10 +39,11 @@ function get_token_set_from_one_document(path_to_document, document_name) {
     try {
       let file_contents = fs.readFileSync(
         path.join(path_to_document, document_name),
+        "utf-8",
       );
 
       //get SET of tokens from file
-      let set_of_tokens = tokenize(file_contents);
+      let set_of_tokens = tokenizer(file_contents);
       return set_of_tokens;
     } catch (err) {
       console.error(
@@ -57,14 +57,14 @@ function get_token_set_from_one_document(path_to_document, document_name) {
 
 function construct_index(everything_maps) {
   let inverted_index = new Map();
-  console.log(typeof everything_maps);
-  console.log(everything_maps);
   everything_maps.forEach(function (set_of_tokens, fileName) {
     set_of_tokens.forEach(function (token) {
       if (inverted_index.has(token)) {
-        inverted_index.set(token, inverted_index.get(token).add(filename));
+        inverted_index.set(token, inverted_index.get(token).add(fileName));
       } else {
-        inverted_index.set(token, new Set());
+        let blank_set = new Set();
+        blank_set.add(fileName);
+        inverted_index.set(token, blank_set);
       }
     });
   });
@@ -96,3 +96,5 @@ snowball_stops.forEach(function (token) {
     inverted_index.delete(token);
   }
 });
+
+console.log(inverted_index);
