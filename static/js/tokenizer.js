@@ -76,13 +76,13 @@ function construct_index(everything_maps) {
   everything_maps.forEach(function (map_of_tokens, fileName) {
     map_of_tokens.forEach(function (frequency, token) {
       if (inverted_index.has(token)) {
-        let file_map = inverted_index.get(token);
-        file_map.set(fileName, frequency);
-        inverted_index.set(token, file_map);
+        let file_list = inverted_index.get(token);
+        file_list.push([fileName, frequency]);
+        inverted_index.set(token, file_list);
       } else {
-        let blank_map = new Map();
-        blank_map.set(fileName, frequency);
-        inverted_index.set(token, blank_map);
+        let blank_list = [];
+        blank_list.push([fileName, frequency]);
+        inverted_index.set(token, blank_list);
       }
     });
   });
@@ -91,15 +91,20 @@ function construct_index(everything_maps) {
 }
 
 //defining the folder in which documents are stored
-const folderName = path.resolve(__dirname, "../../../Documents/Obsidian Vault");
+const folderName = path.resolve(__dirname, "../../../../../Obsidian Vault");
+console.log(folderName);
 
 //building a (document_name, [raw document, set of tags]) map
 let map = new Map();
-if (fs.existsSync(folderName)) {
-  let names = fs.readdirSync(folderName);
-  names.forEach(function (fileName) {
-    map.set(fileName, get_token_set_from_one_document(folderName, fileName));
-  });
+try {
+  if (fs.existsSync(folderName)) {
+    let names = fs.readdirSync(folderName);
+    names.forEach(function (fileName) {
+      map.set(fileName, get_token_set_from_one_document(folderName, fileName));
+    });
+  }
+} catch (err) {
+  console.log(`Error loading folder ${err}`);
 }
 
 //creating a set of stop words from the snowball json file
