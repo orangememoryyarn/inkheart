@@ -14,7 +14,6 @@ This function returns a MAP of the tokens present in the STRING document it is p
 The MAP consists of (word, INTEGER frequency) pairs
 If there is an error, it will print the error message to console and return an empty MAP
 */
-
 function tokenizer(raw_document) {
   try {
     let array_of_tokens = tokenize.words()(raw_document);
@@ -64,6 +63,7 @@ function get_token_set_from_one_document(path_to_document, document_name) {
   }
   return new Map();
 }
+
 /*
 construct_index(everything_maps)
 This function accepts a MAP of all the documents, arranged in (document_name, map_of_tokens) pairs.
@@ -117,11 +117,13 @@ snowball_stops.forEach(function (token) {
   }
 });
 
+//serializing the index
 const myObj = Object.fromEntries(inverted_index);
 const serialized = JSON.stringify(myObj);
 
+//writing the serialized index to the index.json file
 try {
-  fs.writeFileSync("index.json", serialized); // This overwrites the entire file with fresh content
+  fs.writeFileSync("index.json", serialized); //clears file before writing
 } catch (error) {
-  console.error("Failed to write to file:", error);
+  console.error("Error writing to index.json");
 }
