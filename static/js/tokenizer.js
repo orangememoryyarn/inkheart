@@ -37,29 +37,26 @@ function tokenizer(raw_document) {
 
 /*
 get_token_set_from_one_document(path_to_document, document_name)
-This function accepts the STRING path to a document relative to the directory, and the STRING document name
+This function accepts the STRING path to a MARKDOWN document relative to the directory, and the STRING document name
+Only MARKDOWN documents are passed to this function (there is an if statement checking path extensions)
 If the document does not exist, it will return an empty MAP.
-If the document is not a markdown document, it will return an empty MAP.
-If the document exists and is a markdown document, it will return the MAP of (word, INTEGER frequency).
+If the document exists, it will return the MAP of (word, INTEGER frequency).
 */
 function get_token_set_from_one_document(path_to_document, document_name) {
-  if (path.extname(document_name) === ".md") {
-    //get raw markdown file content as STRING
-    try {
-      let file_contents = fs.readFileSync(
-        path.join(path_to_document, document_name),
-        "utf-8",
-      );
+  //get raw markdown file content as STRING
+  try {
+    let file_contents = fs.readFileSync(
+      path.join(path_to_document, document_name),
+      "utf-8",
+    );
 
-      //get MAP of tokens from file
-      let map_of_tokens = tokenizer(file_contents);
-      return map_of_tokens;
-    } catch (err) {
-      console.error(
-        `Error reading Markdown file ${document_name} at ${path.join(path_to_document, document_name)}:`,
-      );
-    }
-    return new Map();
+    //get MAP of tokens from file
+    let map_of_tokens = tokenizer(file_contents);
+    return map_of_tokens;
+  } catch (err) {
+    console.error(
+      `Error reading Markdown file ${document_name} at ${path.join(path_to_document, document_name)}:`,
+    );
   }
   return new Map();
 }
@@ -96,11 +93,18 @@ console.log(folderName);
 
 //building a (document_name, [raw document, set of tags]) map
 let map = new Map();
+let statistics = new Map();
 try {
   if (fs.existsSync(folderName)) {
     let names = fs.readdirSync(folderName);
     names.forEach(function (fileName) {
-      map.set(fileName, get_token_set_from_one_document(folderName, fileName));
+      if (path.extname(fileName) === ".md") {
+        map.set(
+          fileName,
+          get_token_set_from_one_document(folderName, fileName),
+        );
+        statistics.set(fileName, fs.statSync(path.join(folderName, fileName)));
+      }
     });
   }
 } catch (err) {
@@ -123,12 +127,16 @@ snowball_stops.forEach(function (token) {
 });
 
 //serializing the index
-const myObj = Object.fromEntries(inverted_index);
-const serialized = JSON.stringify(myObj);
+const tempObj_index = Object.fromEntries(inverted_index);
+const serialized_index = JSON.stringify(tempObj_index, null, 2);
+
+const tempObj_statistics = Object.fromEntries(statistics);
+const serialized_statistics = JSON.stringify(tempObj_statistics, null, 2);
 
 //writing the serialized index to the index.json file
 try {
-  fs.writeFileSync("index.json", serialized); //clears file before writing
+  fs.writeFileSync("indexed.json", serialized_index);
+  fs.writeFileSync("statistics.json", serialized_statistics);
 } catch (error) {
   console.error("Error writing to index.json");
 }
