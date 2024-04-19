@@ -1855,6 +1855,10 @@
   ],
   "19": [
     [
+      "Articles.md",
+      1
+    ],
+    [
       "LISEF R2 CITATIONS MANNAT.md",
       1
     ],
@@ -3238,6 +3242,10 @@
     ]
   ],
   "2009": [
+    [
+      "Articles.md",
+      1
+    ],
     [
       "Questions.md",
       2
@@ -6707,6 +6715,10 @@
       2
     ],
     [
+      "Search Engine Project Update 4.md",
+      2
+    ],
+    [
       "Search Engines Project Update 1.md",
       1
     ],
@@ -8149,6 +8161,10 @@
       1
     ],
     [
+      "Search Engine Project Update 4.md",
+      3
+    ],
+    [
       "Search Engines Project Update 1.md",
       6
     ],
@@ -8505,6 +8521,10 @@
     [
       "Search Engine Project Update 3.md",
       8
+    ],
+    [
+      "Search Engine Project Update 4.md",
+      1
     ],
     [
       "Search Engines Project Update 1.md",
@@ -14225,6 +14245,10 @@
       2
     ],
     [
+      "Articles.md",
+      1
+    ],
+    [
       "Great Gatsby Chapter 8.md",
       1
     ],
@@ -14744,6 +14768,10 @@
     ],
     [
       "AP Lang Argumentative Essay Writing.md",
+      1
+    ],
+    [
+      "Search Engine Project Update 4.md",
       1
     ],
     [
@@ -16281,6 +16309,10 @@
       6
     ],
     [
+      "Articles.md",
+      1
+    ],
+    [
       "Cold War Culture.md",
       1
     ],
@@ -17558,6 +17590,10 @@
     ],
     [
       "Rate Laws.md",
+      1
+    ],
+    [
+      "Search Engine Project Update 4.md",
       1
     ],
     [
@@ -23591,6 +23627,10 @@
       2
     ],
     [
+      "Search Engine Project Update 4.md",
+      1
+    ],
+    [
       "Search Engines Project Update 2.md",
       4
     ],
@@ -27135,6 +27175,10 @@
       4
     ],
     [
+      "Search Engine Project Update 4.md",
+      1
+    ],
+    [
       "Slaughterbots.md",
       1
     ],
@@ -27276,6 +27320,10 @@
     ],
     [
       "Lemlib Thoughts.md",
+      1
+    ],
+    [
+      "Search Engine Project Update 4.md",
       1
     ],
     [
@@ -28867,6 +28915,10 @@
       1
     ],
     [
+      "Search Engine Project Update 4.md",
+      3
+    ],
+    [
       "Search Engines Project Update 1.md",
       2
     ],
@@ -30130,7 +30182,7 @@
     ],
     [
       "Articles.md",
-      4
+      7
     ],
     [
       "Autograph.md",
@@ -32069,6 +32121,10 @@
     [
       "April AP Lang Sentences.md",
       2
+    ],
+    [
+      "Search Engine Project Update 4.md",
+      1
     ]
   ],
   "century": [
@@ -33843,6 +33899,388 @@
       1
     ]
   ],
+  "Version": [
+    [
+      "Articles.md",
+      1
+    ]
+  ],
+  "Control": [
+    [
+      "Articles.md",
+      1
+    ],
+    [
+      "Autograph.md",
+      4
+    ],
+    [
+      "Drones.md",
+      1
+    ],
+    [
+      "Kingfisher.md",
+      1
+    ],
+    [
+      "Sufficient Caffeine.md",
+      1
+    ]
+  ],
+  "Systems": [
+    [
+      "Articles.md",
+      1
+    ],
+    [
+      "LISEF R2 CITATIONS MANNAT.md",
+      2
+    ]
+  ],
+  "ericsink": [
+    [
+      "Articles.md",
+      1
+    ]
+  ],
+  "com": [
+    [
+      "Articles.md",
+      3
+    ],
+    [
+      "Board Citations.md",
+      1
+    ],
+    [
+      "Cancer.md",
+      2
+    ],
+    [
+      "Citations.md",
+      2
+    ],
+    [
+      "Cold War Culture.md",
+      2
+    ],
+    [
+      "Columbia SHP Cpp notes.md",
+      1
+    ],
+    [
+      "Columbia SHP Spring Semester.md",
+      1
+    ],
+    [
+      "Debugging lemmatizer.js.md",
+      1
+    ],
+    [
+      "EQ Responses Snow Day.md",
+      2
+    ],
+    [
+      "EQ Responses.md",
+      1
+    ],
+    [
+      "Fractal Pose Exponential.md",
+      1
+    ],
+    [
+      "Freethink.md",
+      1
+    ],
+    [
+      "Hand-Interfaces.md",
+      4
+    ],
+    [
+      "LISEF R2 CITATIONS MANNAT.md",
+      2
+    ],
+    [
+      "Lemlib Thoughts.md",
+      1
+    ],
+    [
+      "Motion Control.md",
+      2
+    ],
+    [
+      "Papers.md",
+      4
+    ],
+    [
+      "Quicklinks.md",
+      3
+    ],
+    [
+      "Search Engines Project Update 2.md",
+      1
+    ],
+    [
+      "Slaughterbots.md",
+      2
+    ]
+  ],
+  "scm": [
+    [
+      "Articles.md",
+      1
+    ]
+  ],
+  "source": [
+    [
+      "Articles.md",
+      1
+    ],
+    [
+      "Board Citations.md",
+      1
+    ],
+    [
+      "Debugging lemmatizer.js.md",
+      1
+    ],
+    [
+      "EQ Responses Snow Day.md",
+      1
+    ],
+    [
+      "Papers.md",
+      7
+    ],
+    [
+      "Search Engine Project Update 3.md",
+      1
+    ],
+    [
+      "Slaughterbots.md",
+      2
+    ]
+  ],
+  "control": [
+    [
+      "Articles.md",
+      2
+    ],
+    [
+      "EQ Responses Snow Day.md",
+      1
+    ],
+    [
+      "EQ Responses.md",
+      1
+    ],
+    [
+      "Hand-Interfaces.md",
+      1
+    ],
+    [
+      "Incubator Eugenics.md",
+      1
+    ],
+    [
+      "Projects.md",
+      1
+    ],
+    [
+      "Slaughterbots.md",
+      2
+    ],
+    [
+      "The Origami Engine.md",
+      1
+    ]
+  ],
+  "html": [
+    [
+      "Articles.md",
+      2
+    ],
+    [
+      "Autograph.md",
+      1
+    ],
+    [
+      "Board Citations.md",
+      1
+    ],
+    [
+      "Building.md",
+      1
+    ],
+    [
+      "Debugging lemmatizer.js.md",
+      14
+    ],
+    [
+      "LISEF R2 CITATIONS MANNAT.md",
+      2
+    ],
+    [
+      "Transforms.md",
+      1
+    ],
+    [
+      "pytorch saves.md",
+      6
+    ]
+  ],
+  "preston": [
+    [
+      "Articles.md",
+      1
+    ]
+  ],
+  "werner": [
+    [
+      "Articles.md",
+      1
+    ]
+  ],
+  "05": [
+    [
+      "Articles.md",
+      1
+    ],
+    [
+      "Debugging lemmatizer.js.md",
+      12
+    ],
+    [
+      "Fractal Pose Exponential.md",
+      1
+    ]
+  ],
+  "git": [
+    [
+      "Articles.md",
+      1
+    ]
+  ],
+  "parable": [
+    [
+      "Articles.md",
+      1
+    ]
+  ],
+  "www": [
+    [
+      "Articles.md",
+      1
+    ],
+    [
+      "Board Citations.md",
+      1
+    ],
+    [
+      "Cancer.md",
+      2
+    ],
+    [
+      "Citations.md",
+      1
+    ],
+    [
+      "Columbia SHP Cpp notes.md",
+      1
+    ],
+    [
+      "EQ Responses Snow Day.md",
+      1
+    ],
+    [
+      "EQ Responses.md",
+      1
+    ],
+    [
+      "Eyes.md",
+      1
+    ],
+    [
+      "Freethink.md",
+      1
+    ],
+    [
+      "Hand-Interfaces.md",
+      3
+    ],
+    [
+      "LISEF R2 CITATIONS MANNAT.md",
+      1
+    ],
+    [
+      "Lemlib Thoughts.md",
+      1
+    ],
+    [
+      "Motion Control.md",
+      1
+    ],
+    [
+      "Papers.md",
+      11
+    ],
+    [
+      "Slaughterbots.md",
+      3
+    ]
+  ],
+  "spiceworks": [
+    [
+      "Articles.md",
+      1
+    ]
+  ],
+  "tech": [
+    [
+      "Articles.md",
+      1
+    ]
+  ],
+  "devops": [
+    [
+      "Articles.md",
+      1
+    ]
+  ],
+  "articles": [
+    [
+      "Articles.md",
+      1
+    ],
+    [
+      "Board Citations.md",
+      1
+    ],
+    [
+      "Cancer.md",
+      1
+    ],
+    [
+      "Citations.md",
+      3
+    ],
+    [
+      "EQ Responses Snow Day.md",
+      1
+    ],
+    [
+      "Papers.md",
+      9
+    ],
+    [
+      "Presentation.md",
+      1
+    ],
+    [
+      "Search Engines.md",
+      1
+    ]
+  ],
   "programming": [
     [
       "Autograd.md",
@@ -35381,24 +35819,6 @@
       2
     ]
   ],
-  "Control": [
-    [
-      "Autograph.md",
-      4
-    ],
-    [
-      "Drones.md",
-      1
-    ],
-    [
-      "Kingfisher.md",
-      1
-    ],
-    [
-      "Sufficient Caffeine.md",
-      1
-    ]
-  ],
   "color": [
     [
       "Autograph.md",
@@ -35869,6 +36289,10 @@
       1
     ],
     [
+      "Search Engine Project Update 4.md",
+      1
+    ],
+    [
       "Sequences and Series 2.md",
       1
     ],
@@ -36095,36 +36519,6 @@
     [
       "Autograph.md",
       1
-    ]
-  ],
-  "html": [
-    [
-      "Autograph.md",
-      1
-    ],
-    [
-      "Board Citations.md",
-      1
-    ],
-    [
-      "Building.md",
-      1
-    ],
-    [
-      "Debugging lemmatizer.js.md",
-      14
-    ],
-    [
-      "LISEF R2 CITATIONS MANNAT.md",
-      2
-    ],
-    [
-      "Transforms.md",
-      1
-    ],
-    [
-      "pytorch saves.md",
-      6
     ]
   ],
   "provides": [
@@ -36432,6 +36826,10 @@
     ],
     [
       "Projects.md",
+      1
+    ],
+    [
+      "Search Engine Project Update 4.md",
       1
     ],
     [
@@ -37157,64 +37555,6 @@
       3
     ]
   ],
-  "www": [
-    [
-      "Board Citations.md",
-      1
-    ],
-    [
-      "Cancer.md",
-      2
-    ],
-    [
-      "Citations.md",
-      1
-    ],
-    [
-      "Columbia SHP Cpp notes.md",
-      1
-    ],
-    [
-      "EQ Responses Snow Day.md",
-      1
-    ],
-    [
-      "EQ Responses.md",
-      1
-    ],
-    [
-      "Eyes.md",
-      1
-    ],
-    [
-      "Freethink.md",
-      1
-    ],
-    [
-      "Hand-Interfaces.md",
-      3
-    ],
-    [
-      "LISEF R2 CITATIONS MANNAT.md",
-      1
-    ],
-    [
-      "Lemlib Thoughts.md",
-      1
-    ],
-    [
-      "Motion Control.md",
-      1
-    ],
-    [
-      "Papers.md",
-      11
-    ],
-    [
-      "Slaughterbots.md",
-      3
-    ]
-  ],
   "ncbi": [
     [
       "Board Citations.md",
@@ -37287,36 +37627,6 @@
     [
       "Papers.md",
       7
-    ]
-  ],
-  "articles": [
-    [
-      "Board Citations.md",
-      1
-    ],
-    [
-      "Cancer.md",
-      1
-    ],
-    [
-      "Citations.md",
-      3
-    ],
-    [
-      "EQ Responses Snow Day.md",
-      1
-    ],
-    [
-      "Papers.md",
-      9
-    ],
-    [
-      "Presentation.md",
-      1
-    ],
-    [
-      "Search Engines.md",
-      1
     ]
   ],
   "PMC5144119": [
@@ -37647,32 +37957,6 @@
     [
       "Papers.md",
       1
-    ]
-  ],
-  "source": [
-    [
-      "Board Citations.md",
-      1
-    ],
-    [
-      "Debugging lemmatizer.js.md",
-      1
-    ],
-    [
-      "EQ Responses Snow Day.md",
-      1
-    ],
-    [
-      "Papers.md",
-      7
-    ],
-    [
-      "Search Engine Project Update 3.md",
-      1
-    ],
-    [
-      "Slaughterbots.md",
-      2
     ]
   ],
   "MRI": [
@@ -38479,84 +38763,6 @@
     [
       "Board Citations.md",
       1
-    ]
-  ],
-  "com": [
-    [
-      "Board Citations.md",
-      1
-    ],
-    [
-      "Cancer.md",
-      2
-    ],
-    [
-      "Citations.md",
-      2
-    ],
-    [
-      "Cold War Culture.md",
-      2
-    ],
-    [
-      "Columbia SHP Cpp notes.md",
-      1
-    ],
-    [
-      "Columbia SHP Spring Semester.md",
-      1
-    ],
-    [
-      "Debugging lemmatizer.js.md",
-      1
-    ],
-    [
-      "EQ Responses Snow Day.md",
-      2
-    ],
-    [
-      "EQ Responses.md",
-      1
-    ],
-    [
-      "Fractal Pose Exponential.md",
-      1
-    ],
-    [
-      "Freethink.md",
-      1
-    ],
-    [
-      "Hand-Interfaces.md",
-      4
-    ],
-    [
-      "LISEF R2 CITATIONS MANNAT.md",
-      2
-    ],
-    [
-      "Lemlib Thoughts.md",
-      1
-    ],
-    [
-      "Motion Control.md",
-      2
-    ],
-    [
-      "Papers.md",
-      4
-    ],
-    [
-      "Quicklinks.md",
-      3
-    ],
-    [
-      "Search Engines Project Update 2.md",
-      1
-    ],
-    [
-      "Slaughterbots.md",
-      2
     ]
   ],
   "0528": [
@@ -41941,6 +42147,10 @@
       1
     ],
     [
+      "Search Engine Project Update 4.md",
+      1
+    ],
+    [
       "Spiders.md",
       1
     ],
@@ -43520,6 +43730,10 @@
     ],
     [
       "Motion Control.md",
+      1
+    ],
+    [
+      "Search Engine Project Update 4.md",
       1
     ],
     [
@@ -47524,6 +47738,10 @@
     ],
     [
       "Search Engine Project Update 3.md",
+      1
+    ],
+    [
+      "Search Engine Project Update 4.md",
       1
     ]
   ],
@@ -52843,6 +53061,10 @@
     [
       "Search Engine Project Update 3.md",
       2
+    ],
+    [
+      "Search Engine Project Update 4.md",
+      1
     ]
   ],
   "yields": [
@@ -52934,6 +53156,10 @@
     ],
     [
       "Search Engine Project Update 3.md",
+      2
+    ],
+    [
+      "Search Engine Project Update 4.md",
       2
     ],
     [
@@ -53782,16 +54008,6 @@
     ],
     [
       "Lemlib Thoughts.md",
-      1
-    ]
-  ],
-  "05": [
-    [
-      "Debugging lemmatizer.js.md",
-      12
-    ],
-    [
-      "Fractal Pose Exponential.md",
       1
     ]
   ],
@@ -56423,36 +56639,6 @@
       1
     ]
   ],
-  "control": [
-    [
-      "EQ Responses Snow Day.md",
-      1
-    ],
-    [
-      "EQ Responses.md",
-      1
-    ],
-    [
-      "Hand-Interfaces.md",
-      1
-    ],
-    [
-      "Incubator Eugenics.md",
-      1
-    ],
-    [
-      "Projects.md",
-      1
-    ],
-    [
-      "Slaughterbots.md",
-      2
-    ],
-    [
-      "The Origami Engine.md",
-      1
-    ]
-  ],
   "Look": [
     [
       "EQ Responses Snow Day.md",
@@ -57420,6 +57606,10 @@
     ],
     [
       "McCalla Notes.md",
+      1
+    ],
+    [
+      "Search Engine Project Update 4.md",
       1
     ]
   ],
@@ -58940,6 +59130,10 @@
     ],
     [
       "Presentation.md",
+      1
+    ],
+    [
+      "Search Engine Project Update 4.md",
       1
     ],
     [
@@ -64073,12 +64267,6 @@
     [
       "LISEF R2 CITATIONS MANNAT.md",
       1
-    ]
-  ],
-  "Systems": [
-    [
-      "LISEF R2 CITATIONS MANNAT.md",
-      2
     ]
   ],
   "1–14": [
@@ -76937,6 +77125,10 @@
       1
     ],
     [
+      "Search Engine Project Update 4.md",
+      1
+    ],
+    [
       "Search Engines Project Update 1.md",
       4
     ],
@@ -77040,6 +77232,30 @@
   "status": [
     [
       "Search Engine Project Update 3.md",
+      1
+    ]
+  ],
+  "standardize": [
+    [
+      "Search Engine Project Update 4.md",
+      1
+    ]
+  ],
+  "te": [
+    [
+      "Search Engine Project Update 4.md",
+      1
+    ]
+  ],
+  "backend": [
+    [
+      "Search Engine Project Update 4.md",
+      1
+    ]
+  ],
+  "differences": [
+    [
+      "Search Engine Project Update 4.md",
       1
     ]
   ],
