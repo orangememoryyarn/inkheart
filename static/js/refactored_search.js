@@ -4,7 +4,6 @@ const search_button = document.querySelector("#search_button");
 const search_results = document.querySelector("#cl");
 
 //Lemmatizer initialization
-const lemmatizer = new Lemmatizer();
 
 /*
 This focuses on the search_box when the page is loaded
@@ -16,6 +15,7 @@ window.onload = () => {
 
 const process_change = debounce(() => process_user_input());
 async function process_user_input() {
+  clear_results();
   //clearing the results
   if (search_box.value != "") {
     //creating a map of (word, word type)
@@ -28,6 +28,12 @@ async function process_user_input() {
     for (const [key, _] of tokenized_map) {
       matches.set(key, await match(key));
     }
+
+    matches.forEach((list, word) => {
+      list.forEach((object) => {
+        create_search_result_element(object.file);
+      });
+    });
     utility_print_map(matches);
   }
 }
@@ -39,7 +45,7 @@ function utility_print_map(map) {
 }
 
 function clear_results() {
-  search_box.value = "";
+  search_results.innerHTML = "";
 }
 
 /*
@@ -100,14 +106,11 @@ function load_file_complex(key, source) {
   });
 }
 
-function autollema(word, word_type) {}
-
 async function match(key) {
   return load_file_complex("index", "static/js/indexed.json")
     .then((index) => {
       index = new Map(Object.entries(index));
       if (index.has(key)) {
-        //console.log(index.get(key));
         return index.get(key);
       } else {
         return [];
@@ -127,4 +130,11 @@ function debounce(func, timeout = 60) {
       func.apply(this, args);
     }, timeout);
   };
+}
+
+function create_search_result_element(information) {
+  let box = document.createElement("div");
+  box.classList.add("blocky");
+  box.innerHTML = information;
+  search_results.append(box);
 }
