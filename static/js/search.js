@@ -20,17 +20,6 @@ search_button.addEventListener("click", () => {
 function file_handler(key, local_file_source, callback) {
   let test = load_from_cache(key);
   if (!test) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", local_file_source, true); // true for asynchronous
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        var data = JSON.parse(xhr.responseText);
-        callback(data);
-      }
-    };
-    let data = xhr.send();
-    save_to_cache(data);
-    data;
   } else {
     test;
   }

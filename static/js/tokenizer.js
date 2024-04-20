@@ -74,11 +74,17 @@ function construct_index(everything_maps) {
     map_of_tokens.forEach(function (frequency, token) {
       if (inverted_index.has(token)) {
         let file_list = inverted_index.get(token);
-        file_list.push([fileName, frequency]);
+        file_list.push({
+          file: fileName,
+          frequency: frequency,
+        });
         inverted_index.set(token, file_list);
       } else {
         let blank_list = [];
-        blank_list.push([fileName, frequency]);
+        blank_list.push({
+          file: fileName,
+          frequency: frequency,
+        });
         inverted_index.set(token, blank_list);
       }
     });
@@ -129,6 +135,7 @@ snowball_stops.forEach(function (token) {
 //serializing the index
 const tempObj_index = Object.fromEntries(inverted_index);
 const serialized_index = JSON.stringify(tempObj_index, null, 2);
+console.log(serialized_index);
 
 const tempObj_statistics = Object.fromEntries(statistics);
 const serialized_statistics = JSON.stringify(tempObj_statistics, null, 2);
