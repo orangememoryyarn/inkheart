@@ -20,8 +20,16 @@ async function process_user_input() {
   if (search_box.value != "") {
     //creating a map of (word, word type)
     let tokenized_map = tokenize_with_word_type(search_box.value);
+    let map_clone = new Map(tokenized_map);
+
     //removing stop words from the map
-    tokenized_map = await remove_stop_words(tokenized_map);
+    await remove_stop_words(tokenized_map);
+
+    //if the stop words make up the entire map, keep the stop words
+    if (tokenized_map.size == 0) {
+      tokenized_map = map_clone;
+    }
+
     //creating a map of matches
     let matches = new Map();
 
@@ -35,6 +43,8 @@ async function process_user_input() {
       });
     });
     utility_print_map(matches);
+  } else {
+    create_search_result_element("Type something");
   }
 }
 
@@ -82,11 +92,9 @@ function remove_stop_words(map) {
           map.delete(token);
         }
       });
-      return map; // Return the modified map
     })
     .catch((err) => {
       console.log("Error removing stop words ", err);
-      return map; // Return the original map in case of error
     });
 }
 
@@ -138,3 +146,5 @@ function create_search_result_element(information) {
   box.innerHTML = information;
   search_results.append(box);
 }
+
+//https://socket.dev/npm/package/node-lemmatizer?

@@ -18,7 +18,7 @@ function tokenizer(raw_document) {
   try {
     let array_of_tokens = tokenize.words()(raw_document);
     let map_of_tokens = new Map();
-    array_of_tokens.forEach(function (token_object) {
+    array_of_tokens.forEach((token_object) => {
       if (map_of_tokens.has(token_object.value)) {
         map_of_tokens.set(
           token_object.value,
@@ -70,8 +70,10 @@ It will otherwise return a completed inverted index made of (word, [document_nam
 */
 function construct_index(everything_maps) {
   let inverted_index = new Map();
-  everything_maps.forEach(function (map_of_tokens, fileName) {
-    map_of_tokens.forEach(function (frequency, token) {
+  let word_counts = new Map();
+
+  everything_maps.forEach((map_of_tokens, fileName) => {
+    map_of_tokens.forEach((frequency, token) => {
       if (inverted_index.has(token)) {
         let file_list = inverted_index.get(token);
         file_list.push({
@@ -79,6 +81,7 @@ function construct_index(everything_maps) {
           frequency: frequency,
         });
         inverted_index.set(token, file_list);
+        word_counts.set(token, word_counts.get(token) + frequency);
       } else {
         let blank_list = [];
         blank_list.push({
@@ -86,11 +89,27 @@ function construct_index(everything_maps) {
           frequency: frequency,
         });
         inverted_index.set(token, blank_list);
+        word_counts.set(token, frequency);
       }
     });
   });
   //If everything_maps is blank, inverted_index will be an empty MAP
-  return inverted_index;
+  return [inverted_index, word_counts];
+}
+
+function append_idf_to_index(inverted_index, map, frequency_map) {
+  frequency_map.forEach((word_frequency, word) => {
+    inverted_index.get(word).forEach((object) => {
+      const document_size = map.get(object.file).size;
+
+      //idf = ((appearances in this doc)/ size of this doc)
+      let idf =
+        (object.frequency / document_size) *
+        Math.log(word_frequency / map.size);
+      object.idf = idf;
+      console.log(`idf for ${word}: ${idf}`);
+    });
+  });
 }
 
 //defining the folder in which documents are stored
@@ -103,7 +122,7 @@ let statistics = new Map();
 try {
   if (fs.existsSync(folderName)) {
     let names = fs.readdirSync(folderName);
-    names.forEach(function (fileName) {
+    names.forEach((fileName) => {
       if (path.extname(fileName) === ".md") {
         map.set(
           fileName,
@@ -123,14 +142,18 @@ let page = fs.readFileSync(setpath, "utf-8");
 let snowball_stops = new Set(JSON.parse(page));
 
 //making the index
-let inverted_index = construct_index(map);
+let [inverted_index, frequency_map] = construct_index(map);
 
 //removing stop words
+/*
 snowball_stops.forEach(function (token) {
   if (inverted_index.has(token)) {
     inverted_index.delete(token);
   }
 });
+*/
+
+append_idf_to_index(inverted_index, map, frequency_map);
 
 //serializing the index
 const tempObj_index = Object.fromEntries(inverted_index);
