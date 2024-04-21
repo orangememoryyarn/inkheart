@@ -107,6 +107,7 @@ function append_idf_to_index(inverted_index, map, frequency_map) {
       const document_size = map.get(object.file).size;
 
       let tf = Math.log10(1 + object.frequency / document_size);
+      //
       let idf = Math.log10(map.size / inverted_index.get(word).length);
 
       console.log(
