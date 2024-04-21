@@ -98,18 +98,28 @@ function construct_index(everything_maps) {
 }
 
 function append_idf_to_index(inverted_index, map, frequency_map) {
+  //for every token
+
   frequency_map.forEach((word_frequency, word) => {
+    //for every document object in the list of documents per word
     inverted_index.get(word).forEach((object) => {
+      //the number of tokens in the document
       const document_size = map.get(object.file).size;
 
-      //idf = ((appearances in this doc)/ size of this doc)
-      let idf =
-        (object.frequency / document_size) *
-        Math.log(word_frequency / map.size);
-      object.idf = idf;
-      console.log(`idf for ${word}: ${idf}`);
+      let tf = Math.log10(1 + object.frequency / document_size);
+      let idf = Math.log10(map.size / inverted_index.get(word).length);
+
+      console.log(
+        `the word ${word} has ${inverted_index.get(word).length} documents`,
+      );
+
+      console.log(`the document ${object.file} has ${document_size} tokens`);
+      console.log(`tf for ${word} is ${tf} and idf is ${idf}`);
+      object.tfidf = tf * idf;
+      console.log(object.tfidf);
     });
   });
+  console.log(`there are ${map.size} documents`);
 }
 
 //defining the folder in which documents are stored
@@ -158,7 +168,6 @@ append_idf_to_index(inverted_index, map, frequency_map);
 //serializing the index
 const tempObj_index = Object.fromEntries(inverted_index);
 const serialized_index = JSON.stringify(tempObj_index, null, 2);
-console.log(serialized_index);
 
 const tempObj_statistics = Object.fromEntries(statistics);
 const serialized_statistics = JSON.stringify(tempObj_statistics, null, 2);
