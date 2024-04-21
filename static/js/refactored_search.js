@@ -33,20 +33,25 @@ async function process_user_input() {
     //creating a map of matches
     let matches = new Map();
 
+    //creating a map of (file name, sum of idf scores)
     let documents = new Map();
-    for (const [key, _] of tokenized_map) {
-      matches.set(key, await match(key));
-    }
 
-    matches.forEach((innermap) => {
+    for (const [key, _] of tokenized_map) {
+      let innermap = await match(key);
+      matches.set(key, innermap);
+
       innermap.forEach((object) => {
+        //cutting the .md out
+        let statement = object.file;
+        statement = statement.slice(0, statement.indexOf(".md"));
+
         if (documents.has(object.file)) {
-          documents.set(object.file, documents.get(object.file) + object.tfidf);
+          documents.set(statement, documents.get(object.file) + object.tfidf);
         } else {
-          documents.set(object.file, object.tfidf);
+          documents.set(statement, object.tfidf);
         }
       });
-    });
+    }
 
     const sortedArray = [...documents].sort((a, b) => a[1] - b[1]);
     const sortedMap = new Map(sortedArray);
