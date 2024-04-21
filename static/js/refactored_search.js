@@ -47,6 +47,7 @@ async function process_user_input() {
         }
       });
     });
+
     const sortedArray = [...documents].sort((a, b) => a[1] - b[1]);
     const sortedMap = new Map(sortedArray);
 
@@ -54,6 +55,8 @@ async function process_user_input() {
     keys.forEach((doc) => {
       create_search_result_element(doc);
     });
+
+    utility_print_map(matches);
     //I need to get the overlap between different documents
   } else {
     create_search_result_element("Type something");
@@ -64,6 +67,9 @@ function utility_print_map(map) {
   console.log(map.size);
   map.forEach((value, key) => {
     console.log(`The key is: ${key} and the value is: ${value}`);
+    value.forEach((object) => {
+      console.log(object.file);
+    });
   });
 }
 
