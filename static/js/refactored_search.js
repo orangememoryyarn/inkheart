@@ -37,6 +37,7 @@ async function process_user_input() {
       matches.set(key, await match(key));
     }
 
+    //I need to get the overlap between different documents
     matches.forEach((list, word) => {
       list.forEach((object) => {
         create_search_result_element(object.file);

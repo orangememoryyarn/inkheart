@@ -97,7 +97,12 @@ function construct_index(everything_maps) {
   return [inverted_index, word_counts];
 }
 
-function append_idf_to_index(inverted_index, map, frequency_map) {
+function append_idf_to_index(
+  inverted_index,
+  map,
+  frequency_map,
+  number_of_documents,
+) {
   //for every token
 
   frequency_map.forEach((word_frequency, word) => {
@@ -106,9 +111,11 @@ function append_idf_to_index(inverted_index, map, frequency_map) {
       //the number of tokens in the document
       const document_size = map.get(object.file).size;
 
-      let tf = Math.log10(1 + object.frequency / document_size);
+      let tf = object.frequency / document_size;
       //
-      let idf = Math.log10(map.size / inverted_index.get(word).length);
+      let idf = Math.log10(
+        number_of_documents / inverted_index.get(word).length,
+      );
 
       console.log(
         `the word ${word} has ${inverted_index.get(word).length} documents`,
@@ -154,6 +161,7 @@ let snowball_stops = new Set(JSON.parse(page));
 
 //making the index
 let [inverted_index, frequency_map] = construct_index(map);
+let number_of_documents = map.size;
 
 //removing stop words
 /*
@@ -164,7 +172,7 @@ snowball_stops.forEach(function (token) {
 });
 */
 
-append_idf_to_index(inverted_index, map, frequency_map);
+append_idf_to_index(inverted_index, map, frequency_map, number_of_documents);
 
 //serializing the index
 const tempObj_index = Object.fromEntries(inverted_index);
