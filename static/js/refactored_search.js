@@ -33,23 +33,35 @@ async function process_user_input() {
     //creating a map of matches
     let matches = new Map();
 
+    let documents = new Map();
     for (const [key, _] of tokenized_map) {
       matches.set(key, await match(key));
     }
 
-    //I need to get the overlap between different documents
-    matches.forEach((list, word) => {
-      list.forEach((object) => {
-        create_search_result_element(object.file);
+    matches.forEach((innermap) => {
+      innermap.forEach((object) => {
+        if (documents.has(object.file)) {
+          documents.set(object.file, documents.get(object.file) + object.tfidf);
+        } else {
+          documents.set(object.file, object.tfidf);
+        }
       });
     });
-    utility_print_map(matches);
+    const sortedArray = [...documents].sort((a, b) => a[1] - b[1]);
+    const sortedMap = new Map(sortedArray);
+
+    const keys = Array.from(sortedMap.keys()).reverse().slice(0, 10);
+    keys.forEach((doc) => {
+      create_search_result_element(doc);
+    });
+    //I need to get the overlap between different documents
   } else {
     create_search_result_element("Type something");
   }
 }
 
 function utility_print_map(map) {
+  console.log(map.size);
   map.forEach((value, key) => {
     console.log(`The key is: ${key} and the value is: ${value}`);
   });
