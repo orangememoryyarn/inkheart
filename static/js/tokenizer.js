@@ -155,7 +155,7 @@ try {
 }
 
 //creating a set of stop words from the snowball json file
-const setpath = (path.resolve(__dirname, "static/js"), "snowball.json");
+const setpath = path.resolve(path.resolve(__dirname, "json"), "snowball.json");
 let page = fs.readFileSync(setpath, "utf-8");
 let snowball_stops = new Set(JSON.parse(page));
 
@@ -182,9 +182,13 @@ const tempObj_statistics = Object.fromEntries(statistics);
 const serialized_statistics = JSON.stringify(tempObj_statistics, null, 2);
 
 //writing the serialized index to the index.json file
+
+const index_name = "indexed.json";
+const stats_name = "statistics.json";
+
 try {
-  fs.writeFileSync("indexed.json", serialized_index);
-  fs.writeFileSync("statistics.json", serialized_statistics);
+  fs.writeFileSync(path.join("json", index_name), serialized_index);
+  fs.writeFileSync(path.join("json", stats_name), serialized_statistics);
 } catch (error) {
   console.error("Error writing to index.json");
 }

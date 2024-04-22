@@ -10,14 +10,7 @@ body {
     background-color: var(--white);
 }
 :root {
-    --gradient: hsl(185deg 53% 52%) 0%, hsl(179deg 68% 46%) 25%,
-        hsl(174deg 87% 43%) 41%, hsl(166deg 71% 49%) 53%,
-        hsl(153deg 69% 57%) 63%, hsl(133deg 69% 65%) 70%,
-        hsl(104deg 74% 67%) 77%, hsl(83deg 80% 62%) 84%, hsl(67deg 83% 56%) 91%,
-        hsl(55deg 100% 50%) 100%;
-    --p: hsl(339deg, 100%, 50%);
-    --s: hsl(306deg, 100%, 33%);
-    --t: hsl(0deg, 100%, 0%);
+    --red: hsl(339deg, 100%, 50%);
     --white: white;
 }
 
@@ -42,8 +35,8 @@ body {
         to right,
         black 0%,
         black 5%,
-        var(--p) 5%,
-        var(--p) 95%,
+        var(--red) 5%,
+        var(--red) 95%,
         black 95%
     );
     position: absolute;
@@ -129,7 +122,7 @@ h6 {
     margin-bottom: 0px;
     height: 40px;
     background-color: var(--white);
-    background-image: url("../../images/magnifying-glass.png");
+    background-image: url("../../images/calendar.png");
     background-size: 60%;
     background-repeat: no-repeat;
     background-position: bottom 50% left 55%;
@@ -142,7 +135,7 @@ h6 {
     border-bottom-right-radius: 3px;
 }
 #search_button:hover {
-    box-shadow: 0 4px 8px var(--s);
+    box-shadow: 0 4px var(--red);
     cursor: pointer;
 }
 .search_bound {
@@ -155,8 +148,9 @@ h6 {
     outline: none;
 }
 #search_box:hover {
-    box-shadow: 0 4px 8px var(--s);
+    box-shadow: 0 4px var(--red);
 }
+
 .blocky {
     background-color: var(--white);
     color: black;
@@ -167,6 +161,7 @@ h6 {
     margin-top: 10px;
     box-sizing: border-box;
 }
+
 .blocky:hover {
     background-color: black;
     color: white;
@@ -206,7 +201,16 @@ h6 {
 }
 
 #blob:hover {
-    background-color: var(--p);
-    border-color: var(--p);
+    background-color: var(--red);
+    border-color: var(--red);
     color: #fffafa;
+}
+
+#blocktext {
+    padding: none;
+    margin: none;
+}
+
+.topic-heading .letter {
+    display: inline-block;
 }

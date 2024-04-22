@@ -13,6 +13,15 @@ window.onload = () => {
   search_box.focus();
 };
 
+let confetti = new Confetti("blob");
+
+// Edit given parameters
+confetti.setCount(75);
+confetti.setSize(2);
+confetti.setPower(25);
+confetti.setFade(false);
+confetti.destroyTarget(false);
+
 const process_change = debounce(() => process_user_input());
 async function process_user_input() {
   clear_results();
@@ -109,7 +118,7 @@ It's returning the interpretation of a PROMISE, so it must be awaited on.
 */
 
 function remove_stop_words(map) {
-  return load_file_complex("snowy", "static/js/snowball.json")
+  return load_file_complex("snowy", "static/js/json/snowball.json")
     .then((snowball_set) => {
       snowball_set.forEach((token) => {
         if (map.has(token)) {
@@ -168,7 +177,18 @@ function create_search_result_element(information) {
   let box = document.createElement("div");
   box.classList.add("blocky");
   box.innerHTML = information;
+
   search_results.append(box);
 }
 
 //https://socket.dev/npm/package/node-lemmatizer?
+
+/*
+anime.timeline({ loop: true }).add({
+  targets: ".letters",
+  scaleY: [0, 1],
+  opacity: [0.5, 1],
+  easing: "easeOutExpo",
+  duration: 7000,
+});
+*/
