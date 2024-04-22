@@ -28,7 +28,9 @@ async function process_user_input() {
   //clearing the results
   if (search_box.value != "") {
     //creating a map of (word, word type)
-    let tokenized_map = tokenize_with_word_type(search_box.value);
+    let [tags, user_input] = extract_tags();
+
+    let tokenized_map = tokenize_with_word_type(user_input);
     let map_clone = new Map(tokenized_map);
 
     //removing stop words from the map
@@ -70,11 +72,27 @@ async function process_user_input() {
       create_search_result_element(doc);
     });
 
-    utility_print_map(matches);
+    //utility_print_map(matches);
     //I need to get the overlap between different documents
   } else {
     create_search_result_element("Type something");
   }
+}
+
+function extract_tags() {
+  let tags = [];
+  let user_input = search_box.value;
+  let hashIndex = user_input.indexOf("#");
+
+  while (hashIndex !== -1) {
+    let spaceIndex = user_input.indexOf(" ", hashIndex);
+    let tagEndIndex = spaceIndex !== -1 ? spaceIndex + 1 : user_input.length;
+    let tag = user_input.slice(hashIndex, tagEndIndex);
+    tags.push(tag);
+    user_input = user_input.slice(0, hashIndex) + user_input.slice(tagEndIndex);
+    hashIndex = user_input.indexOf("#");
+  }
+  return [tags, user_input];
 }
 
 function utility_print_map(map) {
@@ -148,7 +166,7 @@ function load_file_complex(key, source) {
 }
 
 async function match(key) {
-  return load_file_complex("index", "static/js/indexed.json")
+  return load_file_complex("index", "static/js/json/indexed.json")
     .then((index) => {
       index = new Map(Object.entries(index));
       if (index.has(key)) {
