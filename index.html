@@ -1,78 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Inkheart</title>
+        <meta name="viewport" content="width=device-width" />
+        <link
+            id="favicon"
+            rel="shortcut icon"
+            type="image/png"
+            href="images/inkheart.png"
+        />
+        <link rel="stylesheet" href="static/css/unity_core.css" />
+    </head>
 
-<head>
+    <body>
+        <header>
+            <p>
+                Light Mode
+                <a class="full-version-link button" href="#" id="inv"
+                    >Go Dark Mode</a
+                >
+            </p>
+        </header>
 
-    <meta charset="utf-8">
-    <title>Inkheart</title>
-    <meta name="viewport" content="width=device-width">
-    <link id="favicon" rel="shortcut icon" type="image/png" href="images/inkheart.png">
-    <link rel="stylesheet" href="static/css/unity_core.css">
-
-</head>
-
-<body>
-
-    <header>
-
-        <p>Light Mode <a class="full-version-link button" href="#" id="inv">Go Dark Mode</a></p>
-
-    </header>
-
-    <main>
-
-        <div class="topic-container">
-
-            <h1 class="topic-heading">
-                <span class="letters">
+        <main>
+            <div class="topic-container">
+                <h1 class="topic-heading">
+                    <span class="letters">
                         Inkheart :
                         <span id="blob"> #playtime</span>
                         notes
-                </span>
-            </h1>
+                    </span>
+                </h1>
 
-            <div class="hr-line" id="v1"></div>
+                <div class="hr-line" id="v1"></div>
 
-            <div class="search_bound">
-
-                <input type="text" id="search_box" placeholder="start searching" onkeyup="process_change()"> </input>
-                <button id="search_button"> </button>
-
+                <div class="search_bound">
+                    <div
+                        id="search_box"
+                        onkeyup="process_change()"
+                        contenteditable="true"
+                    >
+                        <span id="placeholder_box"> start searching </span>
+                    </div>
+                    <button id="search_button"></button>
+                </div>
             </div>
 
-        </div>
+            <div class="hr-line" id="v2"></div>
 
-        <div class="hr-line" id="v2"></div>
+            <ul id="cl">
+                <!--<p class="blocky"> Sample </p>-->
+            </ul>
 
-        <ul id="cl">
+            <div class="dynamic" id="thorn"></div>
+        </main>
 
-            <!--<p class="blocky"> Sample </p>-->
+        <footer class="footer">
+            <div class="hr-line" id="v3"></div>
 
-        </ul>
+            <nav class="lower-nav-container">
+                <li>
+                    <a href="https://github.com/glowingvoices/inkheart"
+                        >About Inkheart</a
+                    >
+                </li>
+                <li><a href="https://github.com/glowingvoices">Github</a></li>
+                <li>
+                    <a href="https://www.example.com">About Mannat (DNE)</a>
+                </li>
+            </nav>
 
-        <div class="dynamic" id="thorn"></div>
+            <p>© Mannat</p>
+        </footer>
 
-    </main>
-
-    <footer class="footer">
-
-        <div class="hr-line" id="v3"></div>
-
-        <nav class="lower-nav-container">
-
-            <li><a href="https://github.com/glowingvoices/inkheart">About Inkheart</a></li>
-            <li><a href="https://github.com/glowingvoices">Github</a></li>
-            <li><a href="https://www.example.com">About Mannat (DNE)</a></li>
-
-        </nav>
-
-        <p> © Mannat </p>
-
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
-     <script src="static/js/libs/confetti.min.js"> </script>
-     <script src="static/js/libs/compromise.js"> </script>
-    <script src="static/js/refactored_search.js"> </script>
-
-</body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+        <script src="static/js/libs/confetti.min.js"></script>
+        <script src="static/js/libs/compromise.js"></script>
+        <script src="static/js/refactored_search.js"></script>
+    </body>
+</html>

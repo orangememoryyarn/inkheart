@@ -13,9 +13,8 @@ window.onload = () => {
   search_box.focus();
 };
 
+//defining the confetti that splays when clicking the playtime blob
 let confetti = new Confetti("blob");
-
-// Edit given parameters
 confetti.setCount(75);
 confetti.setSize(2);
 confetti.setPower(25);
@@ -26,9 +25,17 @@ const process_change = debounce(() => process_user_input());
 async function process_user_input() {
   clear_results();
   //clearing the results
-  if (search_box.value != "") {
+  if (search_box.textContent != "") {
     //creating a map of (word, word type)
     let [tags, user_input] = extract_tags();
+
+    let inner = search_box.innerHTML;
+    console.log(inner);
+    tags.forEach((tag) => {
+      inner = inner.replace(tag, `<span class="glip">${tag}</span>`);
+    });
+    console.log(`edited ${inner}`);
+    search_box.innerHTML = "wh";
 
     let tokenized_map = tokenize_with_word_type(user_input);
     let map_clone = new Map(tokenized_map);
@@ -81,7 +88,7 @@ async function process_user_input() {
 
 function extract_tags() {
   let tags = [];
-  let user_input = search_box.value;
+  let user_input = search_box.textContent;
   let hashIndex = user_input.indexOf("#");
 
   while (hashIndex !== -1) {
