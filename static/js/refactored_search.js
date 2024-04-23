@@ -34,8 +34,6 @@ async function process_user_input() {
     tags.forEach((tag) => {
       inner = inner.replace(tag, `<span class="glip">${tag}</span>`);
     });
-    console.log(`edited ${inner}`);
-    search_box.innerHTML = "wh";
 
     let tokenized_map = tokenize_with_word_type(user_input);
     let map_clone = new Map(tokenized_map);
