@@ -24,15 +24,16 @@ confetti.destroyTarget(false);
 const process_change = debounce(() => process_user_input());
 async function process_user_input() {
   clear_results();
+
   //clearing the results
   if (search_box.textContent != "") {
     //creating a map of (word, word type)
     let [tags, user_input] = extract_tags();
 
     let inner = search_box.innerHTML;
-    console.log(inner);
     tags.forEach((tag) => {
-      inner = inner.replace(tag, `<span class="glip">${tag}</span>`);
+      inner = inner.replace(tag, `<span class="tag">${tag}</span>`);
+      search_box.innerHTML = inner;
     });
 
     let tokenized_map = tokenize_with_word_type(user_input);
@@ -91,10 +92,11 @@ function extract_tags() {
 
   while (hashIndex !== -1) {
     let spaceIndex = user_input.indexOf(" ", hashIndex);
-    let tagEndIndex = spaceIndex !== -1 ? spaceIndex + 1 : user_input.length;
+    let tagEndIndex = spaceIndex !== -1 ? spaceIndex : user_input.length;
     let tag = user_input.slice(hashIndex, tagEndIndex);
     tags.push(tag);
-    user_input = user_input.slice(0, hashIndex) + user_input.slice(tagEndIndex);
+    user_input =
+      user_input.slice(0, hashIndex) + user_input.slice(tagEndIndex + 1);
     hashIndex = user_input.indexOf("#");
   }
   return [tags, user_input];

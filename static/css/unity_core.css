@@ -102,34 +102,6 @@ hr.gray {
 h6 {
     text-transform: uppercase;
 }
-#search_box {
-    margin-top: 10px;
-    height: 40px;
-    background-color: var(--white);
-    color: black;
-    border: 2px solid black;
-    padding: 4px 8px;
-    width: 100%;
-    box-sizing: border-box;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    color: black;
-}
-#search_box:focus {
-    outline: none;
-}
-
-#placeholder_box {
-    color: darkgrey;
-    font-size: 13px;
-}
-
 #search_button {
     margin-top: 10px;
     margin-bottom: 0px;
@@ -159,9 +131,6 @@ h6 {
 .search_bound input:focus,
 .search_bound textarea:focus {
     outline: none;
-}
-#search_box:hover {
-    box-shadow: 0 4px var(--red);
 }
 
 .blocky {
@@ -226,4 +195,85 @@ h6 {
 
 .topic-heading .letter {
     display: inline-block;
+}
+
+.tag {
+    border-radius: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 4px;
+    padding-left: 4px;
+    user-select: none;
+
+    background-color: var(--red);
+    border-color: var(--red);
+    color: #fffafa;
+}
+
+/*
+#search_box:hover {
+    box-shadow: 0 4px var(--red);
+}
+
+#search_box {
+    margin-top: 10px;
+    height: 40px;
+    background-color: var(--white);
+    color: black;
+    border: 2px solid black;
+    padding: 4px 8px;
+    width: 100%;
+    box-sizing: border-box;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+#search_box:focus {
+    outline: none;
+}
+*/
+
+#search_box {
+    /* generic styles */
+    box-sizing: border-box;
+    margin-top: 10px;
+
+    /* height and width of box */
+    height: 40px;
+    width: 100%;
+
+    /* font color and background color */
+    color: black;
+    background-color: var(--white);
+
+    /* border settings */
+    border: 2px solid black;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+
+    /* light shadow for emphasis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+#search_box {
+    /* styling the input text */
+    text-align: center;
+    line-height: 35px;
+    font-size: 0.8em;
+}
+
+#search_box:hover {
+    /* adding a red underset */
+    box-shadow: 0 4px var(--red);
+}
+
+#search_box:focus {
+    /* removing the light blue outline because the red underset serves the same purpose*/
+    outline: none;
 }
