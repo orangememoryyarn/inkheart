@@ -27,14 +27,16 @@ async function process_user_input() {
 
   //clearing the results
   if (search_box.textContent != "") {
-    //creating a map of (word, word type)
-    let [tags, user_input] = extract_tags();
+    let user_input = search_box.textContent;
 
-    let inner = search_box.innerHTML;
-    tags.forEach((tag) => {
-      inner = inner.replace(tag, `<span class="tag">${tag}</span>`);
-      search_box.innerHTML = inner;
-    });
+    //if the input has a #
+    if (user_input.indexOf("#") != -1) {
+      //extract tags and get the updated user input without the tag
+      let tags = extract_tags(user_input);
+      tags.forEach((tag) => {
+        console.log(`|${tag}|`);
+      });
+    }
 
     let tokenized_map = tokenize_with_word_type(user_input);
     let map_clone = new Map(tokenized_map);
@@ -85,21 +87,35 @@ async function process_user_input() {
   }
 }
 
-function extract_tags() {
+function extract_tags(user_input) {
   let tags = [];
-  let user_input = search_box.textContent;
   let hashIndex = user_input.indexOf("#");
 
+  //so long as there are hashtags
   while (hashIndex !== -1) {
+    //the first space after the hashtag
     let spaceIndex = user_input.indexOf(" ", hashIndex);
-    let tagEndIndex = spaceIndex !== -1 ? spaceIndex : user_input.length;
-    let tag = user_input.slice(hashIndex, tagEndIndex);
+    console.log(`the spaceIndex is ${spaceIndex}`);
+    //the end of the tag (space not included in tag)
+    let tag;
+    if (spaceIndex != -1) {
+      tag = user_input.slice(hashIndex, spaceIndex);
+      user_input =
+        user_input.slice(0, hashIndex) + user_input.slice(spaceIndex + 1);
+    } else {
+      tag = user_input.slice(hashIndex, user_input.length);
+      user_input =
+        user_input.slice(0, hashIndex) + user_input.slice(user_input.length);
+    }
+
+    //the tag
+
+    //add tag to list
     tags.push(tag);
-    user_input =
-      user_input.slice(0, hashIndex) + user_input.slice(tagEndIndex + 1);
+
     hashIndex = user_input.indexOf("#");
   }
-  return [tags, user_input];
+  return tags;
 }
 
 function utility_print_map(map) {
