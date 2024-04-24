@@ -18,7 +18,7 @@ function tokenizer(raw_document) {
   try {
     let array_of_tokens = tokenize.words()(raw_document);
     let map_of_tokens = new Map();
-    array_of_tokens.forEach(function (token_object) {
+    array_of_tokens.forEach((token_object) => {
       if (map_of_tokens.has(token_object.value)) {
         map_of_tokens.set(
           token_object.value,
@@ -37,29 +37,26 @@ function tokenizer(raw_document) {
 
 /*
 get_token_set_from_one_document(path_to_document, document_name)
-This function accepts the STRING path to a document relative to the directory, and the STRING document name
+This function accepts the STRING path to a MARKDOWN document relative to the directory, and the STRING document name
+Only MARKDOWN documents are passed to this function (there is an if statement checking path extensions)
 If the document does not exist, it will return an empty MAP.
-If the document is not a markdown document, it will return an empty MAP.
-If the document exists and is a markdown document, it will return the MAP of (word, INTEGER frequency).
+If the document exists, it will return the MAP of (word, INTEGER frequency).
 */
 function get_token_set_from_one_document(path_to_document, document_name) {
-  if (path.extname(document_name) === ".md") {
-    //get raw markdown file content as STRING
-    try {
-      let file_contents = fs.readFileSync(
-        path.join(path_to_document, document_name),
-        "utf-8",
-      );
+  //get raw markdown file content as STRING
+  try {
+    let file_contents = fs.readFileSync(
+      path.join(path_to_document, document_name),
+      "utf-8",
+    );
 
-      //get MAP of tokens from file
-      let map_of_tokens = tokenizer(file_contents);
-      return map_of_tokens;
-    } catch (err) {
-      console.error(
-        `Error reading Markdown file ${document_name} at ${path.join(path_to_document, document_name)}:`,
-      );
-    }
-    return new Map();
+    //get MAP of tokens from file
+    let map_of_tokens = tokenizer(file_contents);
+    return map_of_tokens;
+  } catch (err) {
+    console.error(
+      `Error reading Markdown file ${document_name} at ${path.join(path_to_document, document_name)}:`,
+    );
   }
   return new Map();
 }
@@ -73,57 +70,125 @@ It will otherwise return a completed inverted index made of (word, [document_nam
 */
 function construct_index(everything_maps) {
   let inverted_index = new Map();
-  everything_maps.forEach(function (map_of_tokens, fileName) {
-    map_of_tokens.forEach(function (frequency, token) {
+  let word_counts = new Map();
+
+  everything_maps.forEach((map_of_tokens, fileName) => {
+    map_of_tokens.forEach((frequency, token) => {
       if (inverted_index.has(token)) {
-        let file_map = inverted_index.get(token);
-        file_map.set(fileName, frequency);
-        inverted_index.set(token, file_map);
+        let file_list = inverted_index.get(token);
+        file_list.push({
+          file: fileName,
+          frequency: frequency,
+        });
+        inverted_index.set(token, file_list);
+        word_counts.set(token, word_counts.get(token) + frequency);
       } else {
-        let blank_map = new Map();
-        blank_map.set(fileName, frequency);
-        inverted_index.set(token, blank_map);
+        let blank_list = [];
+        blank_list.push({
+          file: fileName,
+          frequency: frequency,
+        });
+        inverted_index.set(token, blank_list);
+        word_counts.set(token, frequency);
       }
     });
   });
   //If everything_maps is blank, inverted_index will be an empty MAP
-  return inverted_index;
+  return [inverted_index, word_counts];
+}
+
+function append_idf_to_index(
+  inverted_index,
+  map,
+  frequency_map,
+  number_of_documents,
+) {
+  //for every token
+
+  frequency_map.forEach((word_frequency, word) => {
+    //for every document object in the list of documents per word
+    inverted_index.get(word).forEach((object) => {
+      //the number of tokens in the document
+      const document_size = map.get(object.file).size;
+
+      let tf = object.frequency / document_size;
+      //
+      let idf = Math.log10(
+        number_of_documents / inverted_index.get(word).length,
+      );
+
+      console.log(
+        `the word ${word} has ${inverted_index.get(word).length} documents`,
+      );
+
+      console.log(`the document ${object.file} has ${document_size} tokens`);
+      console.log(`tf for ${word} is ${tf} and idf is ${idf}`);
+      object.tfidf = tf * idf;
+      console.log(object.tfidf);
+    });
+  });
+  console.log(`there are ${map.size} documents`);
 }
 
 //defining the folder in which documents are stored
-const folderName = path.resolve(__dirname, "../../../Documents/Obsidian Vault");
+const folderName = path.resolve(__dirname, "../../../../../Obsidian Vault");
+console.log(folderName);
 
 //building a (document_name, [raw document, set of tags]) map
 let map = new Map();
-if (fs.existsSync(folderName)) {
-  let names = fs.readdirSync(folderName);
-  names.forEach(function (fileName) {
-    map.set(fileName, get_token_set_from_one_document(folderName, fileName));
-  });
+let statistics = new Map();
+try {
+  if (fs.existsSync(folderName)) {
+    let names = fs.readdirSync(folderName);
+    names.forEach((fileName) => {
+      if (path.extname(fileName) === ".md") {
+        map.set(
+          fileName,
+          get_token_set_from_one_document(folderName, fileName),
+        );
+        statistics.set(fileName, fs.statSync(path.join(folderName, fileName)));
+      }
+    });
+  }
+} catch (err) {
+  console.log(`Error loading folder ${err}`);
 }
 
 //creating a set of stop words from the snowball json file
-const setpath = (path.resolve(__dirname, "static/js"), "snowball.json");
+const setpath = path.resolve(path.resolve(__dirname, "json"), "snowball.json");
 let page = fs.readFileSync(setpath, "utf-8");
 let snowball_stops = new Set(JSON.parse(page));
 
 //making the index
-let inverted_index = construct_index(map);
+let [inverted_index, frequency_map] = construct_index(map);
+let number_of_documents = map.size;
 
 //removing stop words
+/*
 snowball_stops.forEach(function (token) {
   if (inverted_index.has(token)) {
     inverted_index.delete(token);
   }
 });
+*/
+
+append_idf_to_index(inverted_index, map, frequency_map, number_of_documents);
 
 //serializing the index
-const myObj = Object.fromEntries(inverted_index);
-const serialized = JSON.stringify(myObj);
+const tempObj_index = Object.fromEntries(inverted_index);
+const serialized_index = JSON.stringify(tempObj_index, null, 2);
+
+const tempObj_statistics = Object.fromEntries(statistics);
+const serialized_statistics = JSON.stringify(tempObj_statistics, null, 2);
 
 //writing the serialized index to the index.json file
+
+const index_name = "indexed.json";
+const stats_name = "statistics.json";
+
 try {
-  fs.writeFileSync("index.json", serialized); //clears file before writing
+  fs.writeFileSync(path.join("json", index_name), serialized_index);
+  fs.writeFileSync(path.join("json", stats_name), serialized_statistics);
 } catch (error) {
   console.error("Error writing to index.json");
 }

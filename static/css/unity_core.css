@@ -10,14 +10,7 @@ body {
     background-color: var(--white);
 }
 :root {
-    --gradient: hsl(185deg 53% 52%) 0%, hsl(179deg 68% 46%) 25%,
-        hsl(174deg 87% 43%) 41%, hsl(166deg 71% 49%) 53%,
-        hsl(153deg 69% 57%) 63%, hsl(133deg 69% 65%) 70%,
-        hsl(104deg 74% 67%) 77%, hsl(83deg 80% 62%) 84%, hsl(67deg 83% 56%) 91%,
-        hsl(55deg 100% 50%) 100%;
-    --p: hsl(339deg, 100%, 50%);
-    --s: hsl(306deg, 100%, 33%);
-    --t: hsl(0deg, 100%, 0%);
+    --red: hsl(339deg, 100%, 50%);
     --white: white;
 }
 
@@ -42,8 +35,8 @@ body {
         to right,
         black 0%,
         black 5%,
-        var(--p) 5%,
-        var(--p) 95%,
+        var(--red) 5%,
+        var(--red) 95%,
         black 95%
     );
     position: absolute;
@@ -109,27 +102,12 @@ hr.gray {
 h6 {
     text-transform: uppercase;
 }
-#search_box {
-    margin-top: 10px;
-    height: 40px;
-    background-color: var(--white);
-    color: black;
-    border: 2px solid black;
-    padding: 4px 8px;
-    text-align: center;
-    width: 100%;
-    display: inline-block;
-    box-sizing: border-box;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-}
 #search_button {
     margin-top: 10px;
     margin-bottom: 0px;
     height: 40px;
     background-color: var(--white);
-    background-image: url("../../images/magnifying-glass.png");
+    background-image: url("../../images/calendar.png");
     background-size: 60%;
     background-repeat: no-repeat;
     background-position: bottom 50% left 55%;
@@ -142,7 +120,7 @@ h6 {
     border-bottom-right-radius: 3px;
 }
 #search_button:hover {
-    box-shadow: 0 4px 8px var(--s);
+    box-shadow: 0 4px var(--red);
     cursor: pointer;
 }
 .search_bound {
@@ -154,9 +132,7 @@ h6 {
 .search_bound textarea:focus {
     outline: none;
 }
-#search_box:hover {
-    box-shadow: 0 4px 8px var(--s);
-}
+
 .blocky {
     background-color: var(--white);
     color: black;
@@ -167,6 +143,7 @@ h6 {
     margin-top: 10px;
     box-sizing: border-box;
 }
+
 .blocky:hover {
     background-color: black;
     color: white;
@@ -206,7 +183,103 @@ h6 {
 }
 
 #blob:hover {
-    background-color: var(--p);
-    border-color: var(--p);
+    background-color: var(--red);
+    border-color: var(--red);
     color: #fffafa;
+}
+
+#blocktext {
+    padding: none;
+    margin: none;
+}
+
+.topic-heading .letter {
+    display: inline-block;
+}
+
+.tag {
+    border-radius: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 4px;
+    padding-left: 4px;
+    user-select: none;
+
+    background-color: var(--red);
+    border-color: var(--red);
+    color: #fffafa;
+}
+
+/*
+#search_box:hover {
+    box-shadow: 0 4px var(--red);
+}
+
+#search_box {
+    margin-top: 10px;
+    height: 40px;
+    background-color: var(--white);
+    color: black;
+    border: 2px solid black;
+    padding: 4px 8px;
+    width: 100%;
+    box-sizing: border-box;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+#search_box:focus {
+    outline: none;
+}
+*/
+
+#search_box {
+    /* generic styles */
+    box-sizing: border-box;
+    margin-top: 10px;
+
+    /* height and width of box */
+    height: 40px;
+    width: 100%;
+
+    /* font color and background color */
+    color: black;
+    background-color: var(--white);
+
+    /* border settings */
+    border: 2px solid black;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+
+    /* light shadow for emphasis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+#search_box {
+    /* styling the input text */
+    text-align: center;
+    line-height: 35px;
+    font-size: 0.8em;
+    font-weight: 415;
+}
+
+#search_box:hover {
+    /* adding a red underset */
+    box-shadow: 0 4px var(--red);
+}
+
+#search_box:focus {
+    /* removing the light blue outline because the red underset serves the same purpose*/
+    outline: none;
+}
+
+[contenteditable="true"]:empty:before {
+    content: attr(placeholder);
+    opacity: 0.6;
 }
