@@ -1,17 +1,21 @@
-# inkheart
+# Inkheart
 
-Formerly known as microme, inkheart is a full-text search engine that operates over an index of all my #playtime notes: my stray thoughts, random ideas, and project inklings. It automatically updates trihourly from my Macbook Air, and even maintains a note history: which allows me to update
+Inkheart is a search engine and version control system for my notes.
 
-Some important features I'm planning to implement / have implemented are:
+## To-do:
 - [x] tokenizer
 - [x] lemmatizer
 - [x] stop word removal
-    - [] dynamically updating the stop word list with a td-idf
+    - [ ] dynamically updating the stop word list with a td-idf
 - [x] debouncer
-- [] date and time analysis
-- [] deep search
-- [] bloom filters
-- [] *sharding, parallelization, partitioning?*
-- [] recommendation system
+- [ ] date and time analysis
+- [ ] deep search
+- [ ] bloom filters
+- [ ] sharding
+- [ ] parallelization
+- [ ] partitioning
+- [ ] recommendation system
+- [ ] version control system
+- [ ] markdown editor
+- [ ] desktop app
 
-and more. (This list is *will* change over time).
